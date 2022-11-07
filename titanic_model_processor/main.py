@@ -2,6 +2,7 @@
 
 import pickle
 from enum import Enum
+import logging
 
 import pandas as pd
 
@@ -31,10 +32,10 @@ class Strategy(str, Enum):
 
 
 def make_pipeline(
-    use_pca: bool = True,
-    components: int = 3,
-    num_vars: tuple[str] = ("age",),
-    cat_vars: tuple[str] = ("sex",),
+    num_vars: tuple = (),
+    cat_vars: tuple = (),
+    use_pca: bool = False,
+    components: (int | None) = None,
     num_imp_strategy: Strategy = Strategy.MEAN,
     classifier: ClassifierMixin = GradientBoostingClassifier(),
     scaler: (MinMaxScaler | StandardScaler) = MinMaxScaler(),
@@ -42,14 +43,12 @@ def make_pipeline(
     """Allows the generation of a custom pipeline
 
     Args:
+        num_vars (tuple, optional): numerical fields used in classification. Defaults to ().
+        cat_vars (tuple, optional): categorical fields used in classification. Defaults to ().
         use_pca (bool, optional): if True activates the dimensionality reduction by means of a PCA.
         Defaults to True.
         components (int, optional): total number of fields selected by the PCA.
         Defaults to 3.
-        num_vars (tuple[str], optional): numerical fields used in classification.
-        Defaults to ("age",).
-        cat_vars (tuple[str], optional): categorical fields used in classification.
-        Defaults to ("sex",).
         num_imp_strategy (Strategy, optional): strategy of imputation. Defaults to Strategy.MEAN.
         classifier (ClassifierMixin, optional): model used to classify.
         Defaults to GradientBoostingClassifier().
@@ -70,7 +69,7 @@ def make_pipeline(
 
     steps = [("ct", columns_trans)]
 
-    if use_pca:
+    if use_pca and components is not None:
         steps.append(("pca", PCA(n_components=components)))
 
     steps.append(("model", classifier))
@@ -89,7 +88,13 @@ def fit(pipeline: Pipeline, x_train: pd.DataFrame, y_train: pd.DataFrame) -> Pip
     Returns:
         Pipeline: trained pipeline
     """
-    return pipeline.fit(x_train, y_train)
+    try:
+        pipeline.fit(x_train, y_train)
+    except ValueError as exce:
+        logging.error("The number of components exceeds the number of features")
+        raise ValueError from exce
+
+    return pipeline
 
 
 def export(pipeline: Pipeline, file: str) -> None:
