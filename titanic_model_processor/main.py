@@ -92,7 +92,7 @@ def fit(pipeline: Pipeline, x_train: pd.DataFrame, y_train: pd.DataFrame) -> Pip
     return pipeline.fit(x_train, y_train)
 
 
-def export(pipeline: Pipeline, file: str):
+def export(pipeline: Pipeline, file: str) -> None:
     """Saves the model in the path passed in the file parameter
 
     Args:
