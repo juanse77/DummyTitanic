@@ -13,6 +13,7 @@ This project allows you to create a custom model for the Titanic dataset.
    :caption: Contents:
 
    install
+   example
 
 
 Indices and tables
