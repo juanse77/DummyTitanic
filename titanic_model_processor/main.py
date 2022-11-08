@@ -87,6 +87,7 @@ def fit(pipeline: Pipeline, x_train: pd.DataFrame, y_train: pd.DataFrame) -> Pip
     :type x_train:  DataFrame
     :param y_train: labels of the dataset
     :type y_train:  DataFrame
+    :raises ValueError: is raised when there aren't features or when components is greater than number of features
     :return: trained pipeline
     :rtype: Pipeline
     """
