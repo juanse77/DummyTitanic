@@ -15,6 +15,9 @@ author = "Juan Sebastián Ramírez Artiles"
 
 extensions = ["sphinx.ext.autodoc", "autoapi.extension"]
 
+autoapi_type = "python"
+autoapi_dirs = ["../../titanic_model_processor"]
+
 templates_path = ["_templates"]
 exclude_patterns = []
 
