@@ -19,6 +19,8 @@ In this section we show how to use the library. We will use the Titanic dataset,
     pipeline = make_pipeline(
         num_vars=("age", "fare"), 
         cat_vars=("pclass", "sex", "embarked"),
+        use_pca=True,
+        components=8,
         classifier=RandomForestClassifier(n_estimators=100),
         scaler=StandardScaler(),
         num_imp_strategy="median"
