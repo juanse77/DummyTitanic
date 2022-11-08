@@ -3,7 +3,7 @@ Example
 
 In this section we show how to use the library. We will use the Titanic dataset, but you can use any other dataset.
 
-..code-block:: python
+.. code-block:: python
     from sklearn.datasets import fetch_openml
     from sklearn.model_selection import train_test_split
     
