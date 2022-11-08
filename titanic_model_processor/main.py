@@ -42,21 +42,22 @@ def make_pipeline(
 ) -> Pipeline:
     """Allows the generation of a custom pipeline
 
-    Args:
-        num_vars (tuple, optional): numerical fields used in classification. Defaults to ().
-        cat_vars (tuple, optional): categorical fields used in classification. Defaults to ().
-        use_pca (bool, optional): if True activates the dimensionality reduction by means of a PCA.
-        Defaults to True.
-        components (int, optional): total number of fields selected by the PCA.
-        Defaults to 3.
-        num_imp_strategy (Strategy, optional): strategy of imputation. Defaults to Strategy.MEAN.
-        classifier (ClassifierMixin, optional): model used to classify.
-        Defaults to GradientBoostingClassifier().
-        scaler (MinMaxScaler  |  StandardScaler, optional): type of scaller used.
-        Defaults to MinMaxScaler().
-
-    Returns:
-        Pipeline: processed pipeline
+    :param num_vars: numerical fields used in classification. Defaults to ().
+    :type num_vars: tuple
+    :param cat_vars: categorical fields used in classification. Defaults to ().
+    :type cat_vars: tuple
+    :param use_pca: if True activates the dimensionality reduction by means of a PCA. Defaults to True.
+    :type use_pca: bool
+    :param components: total number of fields selected by the PCA. Defaults to 3.
+    :type components: int or None
+    :param num_imp_strategy: strategy of imputation. Defaults to Strategy.MEAN.
+    :type num_imp_strategy: Strategy
+    :param classifier: model used to classify. Defaults to GradientBoostingClassifier().
+    :type classifier: ClassifierMixin
+    :param scaler: type of scaller used. Defaults to MinMaxScaler().
+    :type scaler:  MinMaxScaler  or  StandardScaler
+    :return: processed pipeline
+    :rtype: Pipeline
     """
 
     num_pipeline = Pipeline(
@@ -80,13 +81,14 @@ def make_pipeline(
 def fit(pipeline: Pipeline, x_train: pd.DataFrame, y_train: pd.DataFrame) -> Pipeline:
     """Trains the model
 
-    Args:
-        pipeline (Pipeline): pipeline to train
-        x_train (pd.DataFrame): dataset to train
-        y_train (pd.DataFrame): labels of the dataset
-
-    Returns:
-        Pipeline: trained pipeline
+    :param pipeline: pipeline to train
+    :type pipeline: Pipeline
+    :param x_train: dataset to train
+    :type x_train:  DataFrame
+    :param y_train: labels of the dataset
+    :type y_train:  DataFrame
+    :return: trained pipeline
+    :rtype: Pipeline
     """
     try:
         pipeline.fit(x_train, y_train)
@@ -100,9 +102,10 @@ def fit(pipeline: Pipeline, x_train: pd.DataFrame, y_train: pd.DataFrame) -> Pip
 def export(pipeline: Pipeline, file: str) -> None:
     """Saves the model in the path passed in the file parameter
 
-    Args:
-        pipeline (Pipeline): model to save
-        file (str): path for saving the model
+    :param pipeline: model to save
+    :type pipeline: Pipeline
+    :param file: path for saving the model
+    :type file: str
     """
     with open(file, "wb") as file_descriptor:
         pickle.dump(pipeline, file_descriptor)
