@@ -102,7 +102,7 @@ def export(pipeline: Pipeline, file: str) -> None:
 
     :param pipeline: model to save
     :type pipeline: Pipeline
-    :param file: path to save the model
+    :param file: path where to save the model
     :type file: str
     """
     with open(file, "wb") as file_descriptor:
