@@ -19,12 +19,7 @@ from sklearn.impute import SimpleImputer
 
 
 class Strategy(str, Enum):
-    """Type of strategies allowed
-
-    Args:
-        str (_type_): string superclass
-        Enum (_type_): superclass
-    """
+    """Type of strategies allowed"""
 
     MEAN = "mean"
     MEDIAN = "median"
@@ -46,7 +41,8 @@ def make_pipeline(
     :type num_vars: tuple
     :param cat_vars: categorical fields used in classification. Defaults to ().
     :type cat_vars: tuple
-    :param use_pca: if True activates the dimensionality reduction by means of a PCA. Defaults to True.
+    :param use_pca: if True activates the dimensionality reduction by means of a PCA.
+    Defaults to True.
     :type use_pca: bool
     :param components: total number of fields selected by the PCA. Defaults to 3.
     :type components: int or None
@@ -87,7 +83,8 @@ def fit(pipeline: Pipeline, x_train: pd.DataFrame, y_train: pd.DataFrame) -> Pip
     :type x_train:  DataFrame
     :param y_train: labels of the dataset
     :type y_train:  DataFrame
-    :raises ValueError: is raised when there aren't features or when components is greater than number of features
+    :raises ValueError: is raised when there aren't features or when components
+    is greater than number of features
     :return: trained pipeline
     :rtype: Pipeline
     """
